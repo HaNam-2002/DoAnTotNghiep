@@ -14,7 +14,7 @@ public class LeaveRequest {
     @Column(name = "id", columnDefinition = "int", nullable = false)
     private Integer id;
     @Column(name = "TypeApplication", columnDefinition = "nvarchar(50)", nullable = false)
-    private String TtpeApplication;
+    private String TypeApplication;
     @Column(name = "Description", columnDefinition = "nvarchar(50)", nullable = false)
     private String description;
     @Column(name = "StartDate", columnDefinition = "date", nullable = false)
@@ -25,7 +25,7 @@ public class LeaveRequest {
     private String leaveStatus;
 
     @ManyToOne
-    @JoinColumn(name = "EmployeId", columnDefinition = "int")
+    @JoinColumn(name = "EmployeeLeaveId", columnDefinition = "int")
     private Employees employees;
 
 }

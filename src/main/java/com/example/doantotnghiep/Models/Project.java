@@ -2,7 +2,7 @@ package com.example.doantotnghiep.Models;
 import lombok.*;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -14,17 +14,18 @@ public class Project {
     @Column(name = "id", columnDefinition = "int", nullable = false)
     private Integer id;
     @Column(name = "ProjectName", columnDefinition = "nvarchar(50)", nullable = false)
-    private String ProjectName;
+    private String projectName;
     @Column(name = "Description", columnDefinition = "nvarchar(50)", nullable = false)
     private String description;
     @Column(name = "StartDate", columnDefinition = "date", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
+    @Column(name = "ProjectStatus", columnDefinition = "nvarchar(50)", nullable = false)
+    private String projectStatus;
 
     @Column(name = "EndDate", columnDefinition = "date", nullable = false)
-    private Date endDate;
-
+    private LocalDate endDate;
     @ManyToOne
-    @JoinColumn(name = "TeamID", columnDefinition = "int")
-    private Team team;
+    @JoinColumn(name = "DepartmentId")
+    private Department department;
 
 }

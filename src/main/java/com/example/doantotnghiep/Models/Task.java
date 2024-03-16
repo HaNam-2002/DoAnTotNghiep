@@ -3,7 +3,9 @@ package com.example.doantotnghiep.Models;
 import lombok.*;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,18 +20,17 @@ public class Task {
     private String taskName;
     @Column(name = "TaskDescription", columnDefinition = "nvarchar(100)", nullable = false)
     private String taskDescription;
-
     @Column(name = "StartDate", columnDefinition = "date", nullable = false)
-    private Date startDate;
-
-    @Column(name = "EndDate", columnDefinition = "date", nullable = false)
-    private Date endDate;
-    @ManyToOne
+    private LocalDate startDate;
+    @Column(name = "EndDate", columnDefinition = "date")
+    private LocalDate endDate;
+    @Column(name = "TaskStatus", columnDefinition = "nvarchar(50)")
+    private String taskStatus;
+    @OneToMany
     @JoinColumn(name = "ReceiverID", columnDefinition = "int")
-    private Employees employees;
-
-    @ManyToOne
-    @JoinColumn(name = "TeamID", columnDefinition = "int")
-    private Team team;
+    private List<Employees> employees;
+    @OneToOne
+    @JoinColumn(name = "ProjectId")
+    private Project project;
 
 }

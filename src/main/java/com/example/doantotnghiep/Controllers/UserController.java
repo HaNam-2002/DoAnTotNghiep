@@ -2,12 +2,9 @@ package com.example.doantotnghiep.Controllers;
 
 import com.example.doantotnghiep.DTOs.PasswordChangeRequest;
 import com.example.doantotnghiep.DTOs.RoleChangeRequest;
-import com.example.doantotnghiep.Exceptions.GlobalExceptionHandler;
 import com.example.doantotnghiep.Exceptions.ResourceNotFoundException;
-import com.example.doantotnghiep.Models.Role;
 import com.example.doantotnghiep.Models.UserEntity;
 import com.example.doantotnghiep.Repositories.RoleRepositories;
-import com.example.doantotnghiep.Services.Role.RoleService;
 import com.example.doantotnghiep.Services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -25,8 +21,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
+
     @Autowired
     private RoleRepositories roleRepositories;
 
@@ -77,14 +72,11 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/updateRole/{id}")
     public ResponseEntity<UserEntity> update(@PathVariable Integer id,
                                              @RequestBody RoleChangeRequest roleUpdateRequest) {
         UserEntity user = userService.findById(id);
-
-        // Update the reference to the new role object
         user.setRole(roleRepositories.findById(roleUpdateRequest.getRoleId()).orElseThrow());
-
         userService.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);

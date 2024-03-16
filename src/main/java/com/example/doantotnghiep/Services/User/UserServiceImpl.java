@@ -78,8 +78,8 @@ public class UserServiceImpl implements UserService {
     public UserEntity saveAfterCheck(UserEntity userEntity) {
         try {
             if (userRepositories.existsByUserName(userEntity.getUserName())) {
-                System.out.println("UserName have exitst");
-                return null;
+                System.out.println("UserName have exist");
+                return userEntity;
             } else {
                 return userRepositories.save(userEntity);
             }
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
             }
             return userEntity;
         } catch (Exception e) {
-            throw new RuntimeException("Error with changePassword " );
+            throw new RuntimeException("Error with changePassword ");
         }
     }
 

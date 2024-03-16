@@ -1,5 +1,7 @@
 package com.example.doantotnghiep.Models;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +20,12 @@ public class Department {
 
     @Column(name = "DepartmentName", columnDefinition =  "nvarchar(50)", nullable = false)
     private  String departmentName;
-
     @OneToOne
+    @JsonManagedReference
     @JoinColumn(name = "DepartmentManagerId")
     private Employees employees;
 
+
+    public Department(String departmentName, Employees managerId) {
+    }
 }

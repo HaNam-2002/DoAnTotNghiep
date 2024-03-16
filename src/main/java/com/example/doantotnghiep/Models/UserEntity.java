@@ -19,14 +19,10 @@ public class UserEntity {
 
     @Column(name = "PassWord", columnDefinition = "nvarchar(255)", nullable = false)
     private String passWord;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "active_status", nullable = true)
-    private ActiveStatus activeStatus;
+    @Column(name = "ActiveStatus", columnDefinition = "nvarchar(255)")
+    private String activeStatus;
     @ManyToOne(targetEntity = Role.class)
     @JoinColumn(name = "rID")
     private Role role;
 }
-enum ActiveStatus {
-    ACTIVE,
-    INACTIVE
-}
+

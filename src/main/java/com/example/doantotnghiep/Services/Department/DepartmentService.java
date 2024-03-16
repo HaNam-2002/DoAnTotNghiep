@@ -5,7 +5,7 @@ import com.example.doantotnghiep.Models.Department;
 import java.util.List;
 
 public interface DepartmentService {
-    List<Department> list(Integer id);
+    List<Department> listAll();
 
     Department get(Integer id);
 
@@ -15,6 +15,11 @@ public interface DepartmentService {
 
     Department saveAffTerCheck (Department department);
 
-    List<Department> findByName (String departmentName)
+    List<Department> findByDepartmentName (String departmentName);
 
+    boolean  existsByDepartmentManagerId (Integer departmentManagerId);
+    boolean exitsByDepartmentName(String departmentName);
+     Department addDepartment(Department department);
+    Department updateDepartment(Integer id, Department departmentUpdate);
+    List<Department> searchDepartment(String departmentName);
 }

@@ -1,30 +1,24 @@
 package com.example.doantotnghiep.Controllers;
 
 import com.example.doantotnghiep.Configs.JWTGenerator;
-import com.example.doantotnghiep.Configs.SecurityConfig;
 import com.example.doantotnghiep.DTOs.AuthResponseDTO;
 import com.example.doantotnghiep.DTOs.LoginDto;
 import com.example.doantotnghiep.DTOs.RegisterDto;
-import com.example.doantotnghiep.Models.Role;
 import com.example.doantotnghiep.Models.UserEntity;
 import com.example.doantotnghiep.Repositories.RoleRepositories;
 import com.example.doantotnghiep.Repositories.UserRepositories;
-import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -62,7 +56,7 @@ public class AuthController {
         UserEntity user = new UserEntity();
         user.setUserName(registerDto.getUserName());
         user.setPassWord(passwordEncoder.encode(registerDto.getPassWord()));
-        user.setRole(roleRepositories.findByRoleName("USER").get());
+        user.setRole(roleRepositories.findByRoleName("Employee").get());
         userRepositories.save(user);
         return new ResponseEntity<>("User register success", HttpStatus.OK);
     }

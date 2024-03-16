@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DepartmentRepositories  extends JpaRepository<Department, Integer> {
- List<Department> findAllByDepartmentName(String departmentName);
+public interface DepartmentRepositories extends JpaRepository<Department, Integer> {
+
+    boolean existsByDepartmentName(String departmentName);
+
+    boolean existsByEmployeesId(Integer employeeId);
+
+    List<Department> findByDepartmentNameContaining(String departmentName);
 }

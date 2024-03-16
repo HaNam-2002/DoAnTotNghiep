@@ -16,7 +16,5 @@ public class Role {
 
     @Column(name = "RoleName", columnDefinition = "nvarchar(255)", nullable = false)
     private String roleName;
-//    public Role(Integer id) {
-//        this.id = id;
-//    }
+
 }
