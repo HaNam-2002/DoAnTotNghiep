@@ -54,20 +54,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public boolean existsByUserId(Integer userId) {
-        return employeeRepositories.existsByUserEntity_Id(userId);
-    }
+//    public boolean existsByUserId(Integer userId) {
+//        return employeeRepositories.existsByUserEntity_Id(userId);
+//    }
 
     @Override
     public Employees save(Employees employee) {
         try {
-            Integer userId = employee.getUserEntity().getId();
-            if (employeeRepositories.existsByUserEntity_Id(userId)) {
-                System.out.println("User Account have exits");
-                return employee;
-            } else {
+//            Integer userId = employee.getUserEntity().getId();
+//            if (employeeRepositories.existsByUserEntity_Id(userId)) {
+//                System.out.println("User Account have exits");
+//                return employee;
+//            } else {
                 return employeeRepositories.save(employee);
-            }
+//            }
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("An error occurred while saving department", e);
         }
@@ -88,9 +88,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employees addEmployee(Employees employees) throws ResourceNotFoundException {
         try {
-            if (existsByUserId(employees.getUserEntity().getId())) {
-                throw new DataIntegrityViolationException("User account already exists.");
-            }
+//            if (existsByUserId(employees.getUserEntity().getId())) {
+//                throw new DataIntegrityViolationException("User account already exists.");
+//            }
             return employeeRepositories.save(employees);
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Failed to add new employee due to data integrity issues.", e);

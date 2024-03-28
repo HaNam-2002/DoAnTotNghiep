@@ -1,10 +1,10 @@
 package com.example.doantotnghiep.DTOs;
-
 import lombok.Data;
 
 @Data
 public class RegisterDto {
-    private  String userName;
-    private  String passWord;
-    private  String passWordRepeat;
+    private  String username;
+    private  String password;
+    private  String passwordRepeat;
+    private Integer employeeID;
 }

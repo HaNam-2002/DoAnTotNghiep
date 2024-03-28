@@ -5,8 +5,11 @@ import com.example.doantotnghiep.DTOs.RoleChangeRequest;
 import com.example.doantotnghiep.Exceptions.ResourceNotFoundException;
 import com.example.doantotnghiep.Models.UserEntity;
 import com.example.doantotnghiep.Repositories.RoleRepositories;
+import com.example.doantotnghiep.Services.Token.JwtUtil;
 import com.example.doantotnghiep.Services.User.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,26 @@ public class UserController {
 
     @Autowired
     private RoleRepositories roleRepositories;
+
+//    @GetMapping("/getUser")
+//    public ResponseEntity<UserEntity> getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+//        UserEntity user =  userService.getUserByUsername(JwtUtil.getUsernameFromJwt(token));
+//        Integer userId= user.getId();
+//        Integer employeeId = user.getEmployees().getId();
+//        Integer departmentId = user.getEmployees().getDepartmentId();
+//        return ResponseEntity.ok(user);
+//    }
+    @GetMapping("/getUser")
+    public ResponseEntity<?> getUserById(HttpServletRequest request) {
+        try {
+            Integer userId = userService.getUserIdByToken(request);
+            UserEntity user = userService.findById(userId);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     @GetMapping("get-all")
     public ResponseEntity<List<UserEntity>> listAllUser() {
@@ -78,7 +101,6 @@ public class UserController {
         UserEntity user = userService.findById(id);
         user.setRole(roleRepositories.findById(roleUpdateRequest.getRoleId()).orElseThrow());
         userService.save(user);
-
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

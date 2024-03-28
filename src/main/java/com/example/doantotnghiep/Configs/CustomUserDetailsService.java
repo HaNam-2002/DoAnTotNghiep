@@ -26,13 +26,12 @@ public class CustomUserDetailsService  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Fetch user by username
-        UserEntity user = userRepositories.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        UserEntity user = userRepositories.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         if (user.getRole() == null) {
             throw new UsernameNotFoundException("User has no assigned role");
         }
         Collection<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRoleName()));
-        return new User(user.getUserName(), user.getPassWord(), authorities);
+        return new User(user.getUsername(), user.getPassword(), authorities);
     }
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());

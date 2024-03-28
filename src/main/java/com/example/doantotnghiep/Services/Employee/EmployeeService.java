@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     List<Employees> findByEmployeeName (String fullName);
 
-    boolean  existsByUserId(Integer userId);
+//    boolean  existsByUserId(Integer userId);
 
     Employees addEmployee(Employees employees);
 

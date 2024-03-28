@@ -39,9 +39,6 @@ public class Employees {
     @JsonBackReference
     @JoinColumn(name = "DepartmentId", columnDefinition = "int")
     private Department department;
-    @OneToOne
-    @JoinColumn(name = "UserId", columnDefinition = "int")
-    private UserEntity userEntity;
     @ManyToOne
     @JoinColumn(name = "PositionId", columnDefinition = "int")
     private Position position;
